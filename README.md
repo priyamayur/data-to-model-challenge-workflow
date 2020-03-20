@@ -12,14 +12,14 @@ For more information about the tools, please head to [ChallengeWorkflowTemplates
 
 ## What to edit
 * **workflow.cwl** 
-  - update L53 (`valueFrom: "syn18081597"`) to the Synapse ID where your workflow is located - *required*
+  - update L53 (`valueFrom: "syn18081597"`) to the Synapse ID where your workflow is located - **required**
   - remove L82-83 (`id: errors_only...`) if sending a "Submission valid!" email is also wanted (default action is to only send an email if invalid reasons are found) - optional
   - update L135 (`default: []`) with score annotations that are meant to remain prviate from the participant - optional
 
 *  **validate.cwl**
-  - update L11 (`dockerPull: python:3.7`) if you are not using a Python script to validate
-  - update the lines of code after `entry: |` with your own validation code
-    - NOTE: expected annotations to write out are `prediction_file_status` and `prediction_file_errors` (see [ChallengeWorkflowTemplates](https://github.com/Sage-Bionetworks/ChallengeWorkflowTemplates#validation-validatecwl) for more information.)
+   - update L11 (`dockerPull: python:3.7`) if you are not using a Python script to validate
+   - update the lines of code after `entry: |` with your own validation code
+      - NOTE: expected annotations to write out are `prediction_file_status` and `prediction_file_errors` (see [ChallengeWorkflowTemplates](https://github.com/Sage-Bionetworks/ChallengeWorkflowTemplates#validation-validatecwl) for more information.)
 
 * **score.cwl**
   - update L11 (`dockerPull: python:3.7`) if you are not using a Python script to score
