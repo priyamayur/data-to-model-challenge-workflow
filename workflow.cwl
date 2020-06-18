@@ -32,7 +32,7 @@ outputs: []
 steps:
 
   download_submission:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.4/get_submission.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.7/get_submission.cwl
     in:
       - id: submissionid
         source: "#submissionId"
@@ -47,7 +47,7 @@ steps:
       - id: results
       
   download_goldstandard:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/synapse-client-cwl-tools/v0.1/synapse-get-tool.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks-Workflows/dockstore-tool-synapse/v0.2/cwl/synapse-get-tool.cwl
     in:
       - id: synapseid
         valueFrom: "syn18081597"  # TODO: replace with your own workflow SynapseID
@@ -69,7 +69,7 @@ steps:
       - id: invalid_reasons
   
   validation_email:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.4/validate_email.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.7/validate_email.cwl
     in:
       - id: submissionid
         source: "#submissionId"
@@ -85,7 +85,7 @@ steps:
     out: [finished]
 
   annotate_validation_with_output:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.4/annotate_submission.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.7/annotate_submission.cwl
     in:
       - id: submissionid
         source: "#submissionId"
@@ -93,14 +93,14 @@ steps:
         source: "#validation/results"
       - id: to_public
         default: true
-      - id: force_change_annotation_acl
+      - id: force
         default: true
       - id: synapse_config
         source: "#synapseConfig"
     out: [finished]
 
   check_status:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.4/check_status.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.7/check_status.cwl
     in:
       - id: status
         source: "#validation/status"
@@ -123,7 +123,7 @@ steps:
       - id: results
       
   score_email:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.4/score_email.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.7/score_email.cwl
     in:
       - id: submissionid
         source: "#submissionId"
@@ -131,12 +131,12 @@ steps:
         source: "#synapseConfig"
       - id: results
         source: "#scoring/results"
-      - id: private_annotations
-        default: []  # if there are scores that should not be returned to the participant, enter them here.
+      # - id: private_annotations
+      #   default: []  # if there are scores that should not be returned to the participant, enter them here.
     out: []
 
   annotate_submission_with_output:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.4/annotate_submission.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v2.7/annotate_submission.cwl
     in:
       - id: submissionid
         source: "#submissionId"
@@ -144,7 +144,7 @@ steps:
         source: "#scoring/results"
       - id: to_public
         default: true
-      - id: force_change_annotation_acl
+      - id: force
         default: true
       - id: synapse_config
         source: "#synapseConfig"
