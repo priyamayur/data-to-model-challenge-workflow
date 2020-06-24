@@ -47,7 +47,7 @@ steps:
       - id: results
       
   download_goldstandard:
-    run: https://raw.githubusercontent.com/Sage-Bionetworks-Workflows/dockstore-tool-synapse/v0.2/cwl/synapse-get-tool.cwl
+    run: https://raw.githubusercontent.com/Sage-Bionetworks-Workflows/dockstore-tool-synapseclient/v0.2/cwl/synapse-get-tool.cwl
     in:
       - id: synapseid
         valueFrom: "syn18081597"  # TODO: replace with your own workflow SynapseID
