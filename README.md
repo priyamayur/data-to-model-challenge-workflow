@@ -39,7 +39,7 @@ For more information about the tools, refer to [ChallengeWorkflowTemplates](http
 **Line** | **Description** | **Required?** | **Example**
 --|--|--|--
 `dockerPull: python:3.8.8-slim-buster` | Update the base image if the validation code is not Python | If code is not Python, yes | ` dockerPull: rocker/r-base:4.0.4`
-`entry: | [validation code]` | Remove the sample validation code and replace with validation code for the Challenge | Yes | --
+`entry: \| [validation code]` | Remove the sample validation code and replace with validation code for the Challenge | Yes | --
 
 * **NOTE:** expected annotations to write out are `submission_status` and `submission_errors`.
 
@@ -48,7 +48,7 @@ For more information about the tools, refer to [ChallengeWorkflowTemplates](http
 **Line** | **Description** | **Required?** | **Example**
 --|--|--|--
 `dockerPull: python:3.8.8-slim-buster` | Update the base image if the validation code is not Python | If code is not Python, yes | ` dockerPull: rocker/r-base:4.0.4`
-`entry: | [scoring code]` | Remove the sample scoring code and replace with scoring code for the Challenge | Yes | --
+`entry: \| [scoring code]` | Remove the sample scoring code and replace with scoring code for the Challenge | Yes | --
 
 * **NOTE:** expected annotations to write out are `primary_metric`, `primary_metric_value`, and `submission_status`. If there is a secondary (tie-breaking) metric, include the `secondary_metric` and `secondary_metric_value` annotations as well.
 
