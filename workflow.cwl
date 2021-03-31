@@ -57,7 +57,7 @@ steps:
     out:
       - id: filepath
 
-  validation:
+  validate:
     run: validate.cwl
     in:
       - id: input_file
@@ -69,7 +69,7 @@ steps:
       - id: status
       - id: invalid_reasons
   
-  validation_email:
+  email_validation:
     run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v3.1/cwl/validate_email.cwl
     in:
       - id: submissionid
@@ -77,9 +77,9 @@ steps:
       - id: synapse_config
         source: "#synapseConfig"
       - id: status
-        source: "#validation/status"
+        source: "#validate/status"
       - id: invalid_reasons
-        source: "#validation/invalid_reasons"
+        source: "#validate/invalid_reasons"
       # OPTIONAL: set `default` to `false` if email notification about valid submission is needed
       - id: errors_only
         default: true
@@ -91,7 +91,7 @@ steps:
       - id: submissionid
         source: "#submissionId"
       - id: annotation_values
-        source: "#validation/results"
+        source: "#validate/results"
       - id: to_public
         default: true
       - id: force
@@ -104,14 +104,14 @@ steps:
     run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v3.1/cwl/check_status.cwl
     in:
       - id: status
-        source: "#validation/status"
+        source: "#validate/status"
       - id: previous_annotation_finished
         source: "#annotate_validation_with_output/finished"
       - id: previous_email_finished
-        source: "#validation_email/finished"
+        source: "#email_validation/finished"
     out: [finished]
 
-  scoring:
+  score:
     run: score.cwl
     in:
       - id: input_file
@@ -123,7 +123,7 @@ steps:
     out:
       - id: results
       
-  score_email:
+  email_score:
     run: https://raw.githubusercontent.com/Sage-Bionetworks/ChallengeWorkflowTemplates/v3.1/cwl/score_email.cwl
     in:
       - id: submissionid
@@ -131,7 +131,7 @@ steps:
       - id: synapse_config
         source: "#synapseConfig"
       - id: results
-        source: "#scoring/results"
+        source: "#score/results"
       # OPTIONAL: add annotations to be withheld from participants to `[]`
       # - id: private_annotations
       #   default: []
@@ -143,7 +143,7 @@ steps:
       - id: submissionid
         source: "#submissionId"
       - id: annotation_values
-        source: "#scoring/results"
+        source: "#score/results"
       - id: to_public
         default: true
       - id: force
