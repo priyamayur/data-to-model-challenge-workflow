@@ -2,12 +2,12 @@
 #
 # Prediction file challenge workflow
 # Inputs:
-#   submissionId: ID of the Synapse submission to process
-#   adminUploadSynId: ID of a folder accessible only to the submission queue administrator
-#   submitterUploadSynId: ID of a folder accessible to the submitter
-#   workflowSynapseId:  ID of the Synapse entity containing a reference to the workflow file(s)
-#   synapseConfig: ~/.synapseConfig file that has your Synapse credentials
-#
+#   submissionId: Submission ID to run this workflow on
+#   adminUploadSynId: Synapse ID of Folder accessible by admin user/team
+#   submitterUploadSynId: Synapse ID of Folder accessible by submitter
+#   workflowSynapseId: Synapse ID of File that links to workflow archive
+#   synapseConfig: filepath to .synapseConfig file
+
 cwlVersion: v1.0
 class: Workflow
 
@@ -26,7 +26,7 @@ inputs:
   - id: synapseConfig
     type: File
 
-# There are no output at the workflow engine level - everything is uploadeded to Synapse.
+# No output; everything is uploaded to Synapse.
 outputs: []
 
 steps:
@@ -49,8 +49,9 @@ steps:
   download_goldstandard:
     run: https://raw.githubusercontent.com/Sage-Bionetworks-Workflows/dockstore-tool-synapseclient/v1.3/cwl/synapse-get-tool.cwl
     in:
+      # TODO: replace `valueFrom` with the Synapse ID to the challenge goldstandard
       - id: synapseid
-        valueFrom: "syn18081597"  # TODO: replace with your own workflow SynapseID
+        valueFrom: "syn18081597"
       - id: synapse_config
         source: "#synapseConfig"
     out:
@@ -59,7 +60,7 @@ steps:
   validation:
     run: validate.cwl
     in:
-      - id: inputfile
+      - id: input_file
         source: "#download_submission/filepath"
       - id: entity_type
         source: "#download_submission/entity_type"
@@ -79,9 +80,9 @@ steps:
         source: "#validation/status"
       - id: invalid_reasons
         source: "#validation/invalid_reasons"
-      - id: errors_only  # remove this param if you would like to send "submission valid" emails as well.
+      # OPTIONAL: set `default` to `false` if email notification about valid submission is needed
+      - id: errors_only
         default: true
-
     out: [finished]
 
   annotate_validation_with_output:
@@ -113,7 +114,7 @@ steps:
   scoring:
     run: score.cwl
     in:
-      - id: inputfile
+      - id: input_file
         source: "#download_submission/filepath"
       - id: goldstandard
         source: "#download_goldstandard/filepath"
@@ -131,8 +132,9 @@ steps:
         source: "#synapseConfig"
       - id: results
         source: "#scoring/results"
+      # OPTIONAL: add annotations to be withheld from participants to `[]`
       # - id: private_annotations
-      #   default: []  # if there are scores that should not be returned to the participant, enter them here.
+      #   default: []
     out: []
 
   annotate_submission_with_output:
