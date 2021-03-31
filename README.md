@@ -1,4 +1,4 @@
-# data-to-model-challenge-workflow
+# Data-to-Model Workflow
 This repository will serve as a template for the `CWL` workflow and tools required to set up a `data-to-model` challenge infrastructure.
 
 For more information about the tools, refer to [ChallengeWorkflowTemplates](https://github.com/Sage-Bionetworks/ChallengeWorkflowTemplates).
@@ -19,13 +19,13 @@ For more information about the tools, refer to [ChallengeWorkflowTemplates](http
 
 ## Usage
 
-#### Requirements
+### Requirements
 * `pip3 install cwltool`
 * A Synapse account/configuration file.  Learn more [here](https://docs.synapse.org/articles/client_configuration.html#for-developers)
 * A Synapse Submission object ID.  Learn more [here](https://docs.synapse.org/articles/evaluation_queues.html#submissions)
 
 
-#### Configurations
+### Configurations
 **workflow.cwl** 
 
 **Step** | **Description** | **Required?** | **Example**
@@ -53,7 +53,7 @@ For more information about the tools, refer to [ChallengeWorkflowTemplates](http
 * **NOTE:** expected annotations to write out are `primary_metric`, `primary_metric_value`, and `submission_status`. If there is a secondary (tie-breaking) metric, include the `secondary_metric` and `secondary_metric_value` annotations as well.
 
 
-#### Example Run
+### Example Run
 
 ```bash
 cwltool workflow.cwl --submissionId 12345 \
